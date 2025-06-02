@@ -2,6 +2,7 @@
   "expo": {
     "name": "classroom-management-educare",
     "slug": "classroom-management-educare",
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +24,12 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "scheme": "classroom-management-educare",
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
