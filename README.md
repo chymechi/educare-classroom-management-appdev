@@ -41,11 +41,11 @@ Out of the four main modules, this documentation focuses on the **Classroom Mana
 
 ## User Roles
 
-| Role                  | Access Description                   |
-|-----------------------|--------------------------------------|
-| ECCD Office-in-Charge | Full control of all centers          |
-| SEED Teacher          | Teaching and evaluation access       |
-| Educare Teacher       | Basic teaching access                |
+| Role                  | Access Description                    |
+|-----------------------|---------------------------------------|
+| ECCD Office-in-Charge | Full control of all centers           |
+| SEED Teacher          | Teaching access (private)             |
+| Educare Teacher       | Teaching access (public)              |
 | Parent                | View child progress and communication |
 
 ## Technologies Used
