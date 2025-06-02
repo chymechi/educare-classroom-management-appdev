@@ -67,23 +67,40 @@ This module is under active development. The following features are completed:
 
 ## Interfaces
 
-## Desktop Screenshots
+### Desktop 
 
-### Login Page
+#### Login Page
 ![Screenshot 2025-06-02 234317](https://github.com/user-attachments/assets/d5c2517e-6ea4-4cbe-9060-62fd49585d63)
 
-### Login Page with the roles
+#### Login Page with the roles
 ![Screenshot 2025-06-02 234332](https://github.com/user-attachments/assets/09998ade-792d-4c35-91b3-98d86761f084)
 
-### Dashboard with Sidebar (dashboard as default)
+#### Dashboard with Sidebar (dashboard as default)
 ![Screenshot 2025-06-02 234532](https://github.com/user-attachments/assets/9c37450e-2a25-4c82-8318-dac974d58ba3)
 
-### Sidebar-Observation Interface
+#### Sidebar-Observation Interface
 ![Screenshot 2025-06-02 234544](https://github.com/user-attachments/assets/09ed7ed9-c409-4dd9-8c08-fed2a9d5aca3)
 
-### Center Observation Form
+#### Center Observation Form
 ![Screenshot 2025-06-02 234600](https://github.com/user-attachments/assets/36ebae49-9700-48ea-afc6-7a336f316d91)
+
+### Mobile
+
+#### Login Page
+![Screenshot_20250603_020013](https://github.com/user-attachments/assets/c1f12a10-c770-4fd8-9d77-4e914c6b068c)
+
+#### Login Page with the roles
+![Screenshot_20250603_020017](https://github.com/user-attachments/assets/62007cb3-3b51-4fa4-a767-64ab4e2765c3)
+
+#### Dashboard with Sidebar (dashboard as default)
+![Screenshot_20250603_020033](https://github.com/user-attachments/assets/b32bb104-9ba4-4f93-bdd9-bdf0d3709ed2)
+
+#### Sidebar-Observation Interface
+![Screenshot_20250603_020147](https://github.com/user-attachments/assets/610ca4d3-fb7d-4442-9dcc-93bc9638e5f8)
+
+#### Center Observation Form
+![Screenshot_20250603_020150](https://github.com/user-attachments/assets/0e690b3b-c160-46ae-9dca-c9c0d9780cc3)
 
 ## Presentation
 
-### Watch the video explanation here: https://drive.google.com/drive/folders/1RDd7kSVIfoVkAGQQssfOkQd9wuyRMrQ8?usp=sharing
+#### Watch the video explanation here: https://drive.google.com/drive/folders/1RDd7kSVIfoVkAGQQssfOkQd9wuyRMrQ8?usp=sharing
