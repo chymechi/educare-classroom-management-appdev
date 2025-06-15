@@ -1,8 +1,8 @@
 # EDUCARE HUB
 
-A mobile and web application that helps manage Early Childhood Care and Development (ECCD) centers across 27 barangays in Naga City. It streamlines daily tasks such as classroom observations, reporting, communication, student progress tracking, etc — making work easier for teachers, administrators, and parents.
+A mobile and web application that helps manage Early Childhood Care and Development (ECCD) Educare centers across Naga City. It facilitates daily tasks such as classroom observations, reporting, communication, student progress tracking, etc — making work easier for teachers, administrators, and parents.
 
-Out of the four main modules, this documentation focuses on the **Classroom Management Module**, particularly the **Center Observation** feature used by the ECCD Office-in-Charge to evaluate teachers.
+Out of the four main modules, this documentation focuses on the **Classroom Management Module**.
 
 ## Key Features
 
@@ -65,7 +65,8 @@ This module is under active development. The following features are completed:
 - Classroom observation system with real-time updates
 - Advanced filtering and search for observations
 
-## Interfaces
+## Interfaces 
+will update soon...
 
 ### Desktop 
 
