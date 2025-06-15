@@ -21,6 +21,7 @@ function ProtectedLayout() {
       }}
     >
       <Stack.Screen name="login" />
+      {/* The (dashboard) group now defines its own layout, which includes the sidebar */}
       <Stack.Screen name="(dashboard)" />
     </Stack>
   );

@@ -1,50 +1,52 @@
-import { View, StyleSheet, Platform } from 'react-native';
-import { Slot } from 'expo-router';
+// src/app/(dashboard)/_layout.js
+import { Slot, Redirect } from 'expo-router';
+import React from 'react';
+import { View, StyleSheet, Platform, ActivityIndicator } from 'react-native';
 import Sidebar from '../sidebar';
-
-const isMobile = Platform.OS === 'ios' || Platform.OS === 'android';
+import { useAuth } from '../../context/AuthContext';
 
 export default function DashboardLayout() {
-  if (isMobile) {
+  const { user, loading } = useAuth();
+
+  if (loading) {
     return (
-      <View style={mobileStyles.container}>
-        <View style={mobileStyles.content}>
-          <Slot />
-        </View>
-        <Sidebar />
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#1e40af" />
       </View>
     );
   }
 
+  if (!user || !user.role) {
+    return <Redirect href="/login" />;
+  }
+
+  const isMobile = Platform.OS === 'ios' || Platform.OS === 'android';
+
   return (
-    <View style={webStyles.container}>
-      <Sidebar />
-      <View style={webStyles.content}>
+    <View style={styles.container}>
+      {!isMobile && <Sidebar />}
+      <View style={styles.contentContainer}>
         <Slot />
       </View>
+      {isMobile && <Sidebar />}
     </View>
   );
 }
 
-const mobileStyles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#fff' 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: Platform.OS === 'web' ? 'row' : 'column',
+    backgroundColor: '#f8fafc',
   },
-  content: { 
-    flex: 1, 
-    backgroundColor: '#fff',
-    paddingBottom: 90, 
+  contentContainer: {
+    flex: 1,
+    backgroundColor: '#f8fafc',
   },
-});
-
-const webStyles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    flexDirection: 'row' 
-  },
-  content: { 
-    flex: 1, 
-    backgroundColor: '#fff' 
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f4ff',
   },
 });

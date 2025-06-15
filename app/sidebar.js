@@ -1,3 +1,4 @@
+// app/sidebar.js - Enhanced with complete role-based navigation
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Platform, ScrollView } from 'react-native';
 import { useRouter, usePathname } from 'expo-router';
@@ -9,27 +10,106 @@ const isMobile = Platform.OS === 'ios' || Platform.OS === 'android';
 export default function Sidebar() {
   const router = useRouter();
   const pathname = usePathname();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
-  const mainLinks = [
-    { label: 'Dashboard', route: '/(dashboard)', icon: 'home-outline' },
-    { label: 'Inbox', route: '/(dashboard)/inbox', icon: 'mail-outline' },
-    { label: 'Employee', route: '/(dashboard)/employee', icon: 'person-outline' },
-    { label: 'Reports', route: '/(dashboard)/reports', icon: 'document-text-outline' },
-    { label: 'Calendar', route: '/(dashboard)/calendar', icon: 'calendar-outline' },
-    { label: 'Observation', route: '/(dashboard)/classroom', icon: 'eye-outline' },
-  ];
+  // Get role-specific navigation configuration
+  const getNavigationConfig = () => {
+    switch (user?.role) {
+      case 'eccd_office':
+        return {
+          basePath: '/eccd_office', // Corrected: this is the direct URL path
+          roleTitle: 'ECCD OFFICE',
+          mainLinks: [
+            { label: 'Dashboard', route: '/eccd_office', icon: 'home-outline' },
+            { label: 'Inbox', route: '/eccd_office/inbox', icon: 'mail-outline' },
+            { label: 'Employee', route: '/eccd_office/employee', icon: 'people-outline' },
+            { label: 'Reports', route: '/eccd_office/reports', icon: 'document-text-outline' },
+            { label: 'Calendar', route: '/eccd_office/calendar', icon: 'calendar-outline' },
+            { label: 'Observation', route: '/eccd_office/classroom', icon: 'eye-outline' },
+          ],
+          userLinks: [
+            { label: 'Profile', route: '/eccd_office/profile', icon: 'person-circle-outline' },
+            { label: 'Settings', route: '/eccd_office/settings', icon: 'settings-outline' },
+          ]
+        };
 
-  const userLinks = [
-    { label: 'Profile', route: '/(dashboard)/profile', icon: 'person-circle-outline' },
-    { label: 'Settings', route: '/(dashboard)/settings', icon: 'settings-outline' },
-  ];
+      case 'seed_teacher':
+        return {
+          basePath: '/seed_teacher', // Corrected
+          roleTitle: 'SEED TEACHER',
+          mainLinks: [
+            { label: 'Dashboard', route: '/seed_teacher', icon: 'home-outline' },
+            { label: 'Enrollment', route: '/seed_teacher/enrollment', icon: 'person-add-outline' },
+            { label: 'Class List', route: '/seed_teacher/classlist', icon: 'list-outline' },
+            { label: 'Reports', route: '/seed_teacher/reports', icon: 'document-text-outline' },
+            { label: 'Calendar', route: '/seed_teacher/calendar', icon: 'calendar-outline' },
+            { label: 'Inbox', route: '/seed_teacher/inbox', icon: 'mail-outline' },
+          ],
+          userLinks: [
+            { label: 'Profile', route: '/seed_teacher/profile', icon: 'person-circle-outline' },
+            { label: 'Settings', route: '/seed_teacher/settings', icon: 'settings-outline' },
+          ]
+        };
+
+      case 'educare_teacher':
+        return {
+          basePath: '/educare_teacher', // Corrected
+          roleTitle: 'EDUCARE TEACHER',
+          mainLinks: [
+            { label: 'Dashboard', route: '/educare_teacher', icon: 'home-outline' },
+            { label: 'Enrollment', route: '/educare_teacher/enrollment', icon: 'person-add-outline' },
+            { label: 'Class List', route: '/educare_teacher/classlist', icon: 'list-outline' },
+            { label: 'Reports', route: '/educare_teacher/reports', icon: 'document-text-outline' },
+            { label: 'Calendar', route: '/educare_teacher/calendar', icon: 'calendar-outline' },
+            { label: 'Inbox', route: '/educare_teacher/inbox', icon: 'mail-outline' },
+          ],
+          userLinks: [
+            { label: 'Profile', route: '/educare_teacher/profile', icon: 'person-circle-outline' },
+            { label: 'Settings', route: '/educare_teacher/settings', icon: 'settings-outline' },
+          ]
+        };
+
+      case 'parent':
+        return {
+          basePath: '/parent', // Corrected
+          roleTitle: 'PARENT',
+          mainLinks: [
+            { label: 'Dashboard', route: '/parent', icon: 'home-outline' },
+            { label: 'Child Info', route: '/parent/child-info', icon: 'happy-outline' },
+            { label: 'Schedule', route: '/parent/schedule', icon: 'time-outline' },
+            { label: 'Inbox', route: '/parent/inbox', icon: 'mail-outline' },
+          ],
+          userLinks: [
+            { label: 'Profile', route: '/parent/profile', icon: 'person-circle-outline' },
+            { label: 'Settings', route: '/parent/settings', icon: 'settings-outline' },
+          ]
+        };
+
+      default:
+        return {
+          basePath: '/login',
+          roleTitle: 'USER',
+          mainLinks: [],
+          userLinks: []
+        };
+    }
+  };
+
+  const config = getNavigationConfig();
+  const { mainLinks, userLinks, roleTitle } = config;
+
+  const isActiveRoute = (route) => {
+    if (route === config.basePath) {
+      return pathname === route || pathname === `${route}/`;
+    }
+    return pathname.startsWith(route);
+  };
 
   if (isMobile) {
     return (
       <View style={mobileStyles.bottomNav}>
-        <ScrollView 
-          horizontal 
+        <ScrollView
+          horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={mobileStyles.navContent}
         >
@@ -39,48 +119,48 @@ export default function Sidebar() {
               onPress={() => router.push(link.route)}
               style={[
                 mobileStyles.navItem,
-                pathname === link.route && mobileStyles.activeNavItem
+                isActiveRoute(link.route) && mobileStyles.activeNavItem
               ]}
               activeOpacity={0.7}
             >
-              <Ionicons 
-                name={link.icon} 
-                size={20} 
-                color={pathname === link.route ? '#fff' : '#8B9DC3'} 
+              <Ionicons
+                name={link.icon}
+                size={20}
+                color={isActiveRoute(link.route) ? '#fff' : '#8B9DC3'}
               />
               <Text style={[
                 mobileStyles.navText,
-                pathname === link.route && mobileStyles.activeNavText
+                isActiveRoute(link.route) && mobileStyles.activeNavText
               ]}>
                 {link.label}
               </Text>
             </TouchableOpacity>
           ))}
-          
+
           {userLinks.map(link => (
             <TouchableOpacity
               key={link.route}
               onPress={() => router.push(link.route)}
               style={[
                 mobileStyles.navItem,
-                pathname === link.route && mobileStyles.activeNavItem
+                isActiveRoute(link.route) && mobileStyles.activeNavItem
               ]}
               activeOpacity={0.7}
             >
-              <Ionicons 
-                name={link.icon} 
-                size={20} 
-                color={pathname === link.route ? '#fff' : '#8B9DC3'} 
+              <Ionicons
+                name={link.icon}
+                size={20}
+                color={isActiveRoute(link.route) ? '#fff' : '#8B9DC3'}
               />
               <Text style={[
                 mobileStyles.navText,
-                pathname === link.route && mobileStyles.activeNavText
+                isActiveRoute(link.route) && mobileStyles.activeNavText
               ]}>
                 {link.label}
               </Text>
             </TouchableOpacity>
           ))}
-          
+
           <TouchableOpacity
             onPress={logout}
             style={mobileStyles.logoutItem}
@@ -97,11 +177,12 @@ export default function Sidebar() {
   return (
     <View style={webStyles.sidebar}>
       <View style={webStyles.logoSection}>
-        <Image 
-          source={require('../assets/4.png')} 
+        <Image
+          source={require('../assets/4.png')} // Ensure you have this asset
           style={webStyles.logo}
           resizeMode="contain"
         />
+        <Text style={webStyles.roleText}>{roleTitle}</Text>
       </View>
 
       <View style={webStyles.section}>
@@ -111,15 +192,15 @@ export default function Sidebar() {
           <TouchableOpacity
             key={link.route}
             onPress={() => router.push(link.route)}
-            style={[webStyles.link, pathname === link.route && webStyles.activeLink]}
+            style={[webStyles.link, isActiveRoute(link.route) && webStyles.activeLink]}
           >
-            <Ionicons 
-              name={link.icon} 
-              size={20} 
-              color={pathname === link.route ? '#fff' : '#d1d5db'} 
+            <Ionicons
+              name={link.icon}
+              size={20}
+              color={isActiveRoute(link.route) ? '#fff' : '#d1d5db'}
               style={webStyles.icon}
             />
-            <Text style={[webStyles.linkText, pathname === link.route && webStyles.activeText]}>
+            <Text style={[webStyles.linkText, isActiveRoute(link.route) && webStyles.activeText]}>
               {link.label}
             </Text>
           </TouchableOpacity>
@@ -133,15 +214,15 @@ export default function Sidebar() {
           <TouchableOpacity
             key={link.route}
             onPress={() => router.push(link.route)}
-            style={[webStyles.link, pathname === link.route && webStyles.activeLink]}
+            style={[webStyles.link, isActiveRoute(link.route) && webStyles.activeLink]}
           >
-            <Ionicons 
-              name={link.icon} 
-              size={20} 
-              color={pathname === link.route ? '#fff' : '#d1d5db'} 
+            <Ionicons
+              name={link.icon}
+              size={20}
+              color={isActiveRoute(link.route) ? '#fff' : '#d1d5db'}
               style={webStyles.icon}
             />
-            <Text style={[webStyles.linkText, pathname === link.route && webStyles.activeText]}>
+            <Text style={[webStyles.linkText, isActiveRoute(link.route) && webStyles.activeText]}>
               {link.label}
             </Text>
           </TouchableOpacity>
@@ -156,7 +237,7 @@ export default function Sidebar() {
   );
 }
 
-// Mobile Styles 
+// Mobile Styles
 const mobileStyles = StyleSheet.create({
   bottomNav: {
     position: 'absolute',
@@ -164,7 +245,7 @@ const mobileStyles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: '#213594',
-    paddingBottom: 20, 
+    paddingBottom: 20,
     paddingTop: 10,
     borderTopWidth: 1,
     borderTopColor: '#2E4A9B',
@@ -241,6 +322,13 @@ const webStyles = StyleSheet.create({
   logo: {
     width: 180,
     height: 120,
+  },
+  roleText: {
+    color: '#8B9DC3',
+    fontSize: 12,
+    fontWeight: '600',
+    letterSpacing: 1,
+    marginTop: 10,
   },
   section: {
     paddingHorizontal: 25,

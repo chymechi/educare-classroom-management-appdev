@@ -1,3 +1,4 @@
+// src/app/(dashboard)/eccd_office/classroom.js
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Platform, FlatList, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -26,7 +27,7 @@ export default function Classroom() {
   const barangays = [
     'All',
     'Abella',
-    'Bagumbayan Norte', 
+    'Bagumbayan Norte',
     'Bagumbayan Sur',
     'Balatas',
     'Calauag',
@@ -75,13 +76,13 @@ export default function Classroom() {
   const filteredData = educareData.filter(item => {
     const matchesBarangay = selectedBarangay === 'All' || item.barangay === selectedBarangay;
     const matchesCenter = selectedCenter === 'All' || item.centerName === selectedCenter;
-    const matchesSearch = searchTerm === '' || 
+    const matchesSearch = searchTerm === '' ||
       item.barangay.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.centerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.teacher.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.status.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     return matchesBarangay && matchesCenter && matchesSearch;
   });
 
@@ -114,7 +115,7 @@ export default function Classroom() {
           : item
       )
     );
-    
+
     setShowObservationForm(false);
     setSelectedTeacher(null);
   };
@@ -135,14 +136,14 @@ export default function Classroom() {
           <Text style={styles.dropdownLabel}>{title}</Text>
           <Text style={styles.dropdownValue}>{value}</Text>
         </View>
-        <Ionicons 
-          name={isOpen ? "chevron-up" : "chevron-down"} 
-          size={20} 
-          color="#1e40af" 
+        <Ionicons
+          name={isOpen ? "chevron-up" : "chevron-down"}
+          size={20}
+          color="#1e40af"
           style={styles.dropdownIcon}
         />
       </TouchableOpacity>
-      
+
       {isOpen && (
         <View style={styles.enhancedDropdownList}>
           <ScrollView style={styles.enhancedDropdownScroll} nestedScrollEnabled>
@@ -184,13 +185,13 @@ export default function Classroom() {
           <Text style={mobileStyles.dropdownLabel}>{title}</Text>
           <Text style={mobileStyles.dropdownValue}>{value}</Text>
         </View>
-        <Ionicons 
-          name={isOpen ? "chevron-up" : "chevron-down"} 
-          size={18} 
-          color="#1e40af" 
+        <Ionicons
+          name={isOpen ? "chevron-up" : "chevron-down"}
+          size={18}
+          color="#1e40af"
         />
       </TouchableOpacity>
-      
+
       {isOpen && (
         <View style={mobileStyles.enhancedDropdownList}>
           <ScrollView style={mobileStyles.enhancedDropdownScroll} nestedScrollEnabled>
@@ -404,18 +405,18 @@ export default function Classroom() {
           </Text>
         </TouchableOpacity>
       </View>
-      
+
       <View style={mobileStyles.cardContent}>
         <View style={mobileStyles.cardRow}>
           <Text style={mobileStyles.cardLabel}>Center:</Text>
           <Text style={mobileStyles.cardValue}>{item.centerName}</Text>
         </View>
-        
+
         <View style={mobileStyles.cardRow}>
           <Text style={mobileStyles.cardLabel}>Location:</Text>
           <Text style={mobileStyles.cardValue}>{item.location}</Text>
         </View>
-        
+
         <View style={mobileStyles.cardRow}>
           <Text style={mobileStyles.cardLabel}>Teacher:</Text>
           <Text style={mobileStyles.cardValue}>{item.teacher}</Text>
@@ -741,7 +742,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 16,
     elevation: 12,
-    zIndex: 2200, 
+    zIndex: 2200,
   },
   enhancedDropdownScroll: {
     maxHeight: 240,
@@ -782,8 +783,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 8,
     elevation: 4,
-    zIndex: 1, 
-    position: 'relative', 
+    zIndex: 1,
+    position: 'relative',
   },
   tableHeader: {
     flexDirection: 'row',
@@ -1065,7 +1066,7 @@ const mobileStyles = StyleSheet.create({
   searchContainer: {
     position: 'relative',
     width: 320,
-    zIndex: 2000, 
+    zIndex: 2000,
   },
   searchIcon: {
     position: 'absolute',
