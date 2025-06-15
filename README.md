@@ -28,7 +28,7 @@ Out of the four main modules, this documentation focuses on the **Classroom Mana
 ### Classroom Observation
 
 - Allows ECCD Office-in-Charge to evaluate teachers
-- Covers observations across 28 barangays
+- Covers observations across 27 barangays
 - Filters available by barangay, center type, and school year
 - Color-coded observation status (e.g., Pending, Done)
 - Real-time updates and data synchronization
